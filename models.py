@@ -44,9 +44,9 @@ class Acompanhamento:
 
 
 CLASSIFICACAO_LABELS = {
-    "sem_indicios": "Sem indícios de dificuldade",
-    "atencao": "Atenção pedagógica",
-    "intervencao": "Necessita intervenção",
+    "sem_indicios": "Acompanhamento regular",
+    "atencao": "Sinais de atenção",
+    "intervencao": "Prioridade de acompanhamento",
 }
 
 CLASSIFICACAO_CORES = {

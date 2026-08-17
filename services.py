@@ -27,7 +27,10 @@ def calcular_nota_padronizada(
 def calcular_taxa_exercicios(
     resolvidos: int,
     propostos: int,
-) -> float:
+) -> float | None:
+    if propostos == 0:
+        return None
+
     return dividir(resolvidos, propostos) * 100
 
 
@@ -101,8 +104,11 @@ def _pontos_participacao(
 
 
 def _pontos_exercicios(
-    taxa_exercicios: float,
+    taxa_exercicios: float | None,
 ) -> int:
+    if taxa_exercicios is None:
+        return 0
+
     if taxa_exercicios >= 80:
         return 0
 
@@ -113,11 +119,8 @@ def _pontos_exercicios(
 
 
 def _pontos_evolucao(evolucao: str) -> int:
-    if evolucao in {"positiva", "sem_historico"}:
+    if evolucao in {"positiva", "estavel", "sem_historico"}:
         return 0
-
-    if evolucao == "estavel":
-        return 1
 
     return 2
 
@@ -128,7 +131,7 @@ def classificar_aluno(
     nota_atividades: float,
     atividades_atrasadas: int,
     participacao: float,
-    taxa_exercicios: float,
+    taxa_exercicios: float | None,
     evolucao: str,
 ) -> tuple[str, int, dict[str, int]]:
     pontos_por_indicador = {

@@ -82,6 +82,7 @@ def construir_dataframe_turma(
                     "Frequência (%)": None,
                     "Nota Provas": None,
                     "Nota Atividades": None,
+                    "Ativ. Entregues": None,
                     "Ativ. Atrasadas": None,
                     "Participação": None,
                     "Taxa Exercícios (%)": None,
@@ -124,11 +125,13 @@ def construir_dataframe_turma(
                     indicadores["nota_atividades"],
                     2,
                 ),
+                "Ativ. Entregues": ultimo["atividades_entregues"],
                 "Ativ. Atrasadas": ultimo["atividades_atrasadas"],
                 "Participação": ultimo["participacao_aula"],
-                "Taxa Exercícios (%)": round(
-                    indicadores["taxa_exercicios"],
-                    1,
+                "Taxa Exercícios (%)": (
+                    round(indicadores["taxa_exercicios"], 1)
+                    if indicadores["taxa_exercicios"] is not None
+                    else None
                 ),
                 "Evolução": indicadores["evolucao"],
                 "Pontuação": pontuacao,
@@ -178,9 +181,10 @@ def construir_serie_temporal_aluno(
                 "Participação": acompanhamento[
                     "participacao_aula"
                 ],
-                "Taxa Exercícios (%)": round(
-                    indicadores["taxa_exercicios"],
-                    1,
+                "Taxa Exercícios (%)": (
+                    round(indicadores["taxa_exercicios"], 1)
+                    if indicadores["taxa_exercicios"] is not None
+                    else None
                 ),
                 "Evolução": indicadores["evolucao"],
                 "acompanhamento_id": acompanhamento["id"],
@@ -198,6 +202,9 @@ def construir_serie_temporal_aluno(
 def calcular_metricas_turma(
     dataframe: pd.DataFrame,
 ) -> dict:
+    if dataframe.empty or "Frequência (%)" not in dataframe.columns:
+        return {}
+
     com_dados = dataframe.dropna(
         subset=["Frequência (%)"]
     )
@@ -267,13 +274,17 @@ def calcular_indicadores_aluno(
             indicadores["nota_atividades"],
             2,
         ),
+        "atividades_entregues": ultimo[
+            "atividades_entregues"
+        ],
         "atividades_atrasadas": ultimo[
             "atividades_atrasadas"
         ],
         "participacao": ultimo["participacao_aula"],
-        "taxa_exercicios": round(
-            indicadores["taxa_exercicios"],
-            1,
+        "taxa_exercicios": (
+            round(indicadores["taxa_exercicios"], 1)
+            if indicadores["taxa_exercicios"] is not None
+            else None
         ),
         "evolucao": indicadores["evolucao"],
         "classificacao": classificacao,
