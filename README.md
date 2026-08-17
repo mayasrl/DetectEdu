@@ -147,5 +147,5 @@ Para preencher o sistema com a base fictícia, utilize o botão **Carregar dados
 ---
 
 <p align="center">
-  Desenvolvido como projeto acadêmico em <strong>Ciência de Dados e Data Analytics</strong>, com 💛 por <strong>@mayasrl</strong>.
+  Desenvolvido para o <strong>Pitch de avaliação final da Pós-Graduação em Ciência de Dados da Descomplica</strong> e para o <strong>Projeto Aplicado Orientado à Decisão do Curso de Atualização em Data Analytics para Tomada de Decisão da ECA-USP</strong>, com 💛 por <strong>@mayasrl</strong>.
 </p>
